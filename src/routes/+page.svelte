@@ -73,17 +73,17 @@
         //two bass layers are necessary for seamless looping in my case
         //each layer has a sounds array, a gain node, and a timeout for looping
         bassLayer1 = {
-            sounds: [new Tone.Player("/static/bass-layer-1.mp3"), new Tone.Player("/static/bass-layer-1.mp3")],
+            sounds: [new Tone.Player("/have-you-ever-wondered-why-the-mole-people-march/bass-layer-1.mp3"), new Tone.Player("/have-you-ever-wondered-why-the-mole-people-march/bass-layer-1.mp3")],
             gain: new Tone.Gain().toDestination(),
             timeout: null,
         };
         bassLayer2 = {
-            sounds: [new Tone.Player("/static/bass-layer-2.mp3"), new Tone.Player("/static/bass-layer-2.mp3")],
+            sounds: [new Tone.Player("/have-you-ever-wondered-why-the-mole-people-march/bass-layer-2.mp3"), new Tone.Player("/have-you-ever-wondered-why-the-mole-people-march/bass-layer-2.mp3")],
             gain: new Tone.Gain().toDestination(),
             timeout: null,
         };
         bassLayer3 = {
-            sounds: [new Tone.Player("/static/bass-layer-3.mp3"), new Tone.Player("/static/bass-layer-3.mp3")],
+            sounds: [new Tone.Player("/have-you-ever-wondered-why-the-mole-people-march/bass-layer-3.mp3"), new Tone.Player("/have-you-ever-wondered-why-the-mole-people-march/bass-layer-3.mp3")],
             gain: new Tone.Gain().toDestination(),
             timeout: null,
         };
@@ -223,11 +223,11 @@
     function stepMaker(volume, taps, min, max, dmin, dmax) {
         //plays a sound when the function is called for the first time, or immediately after the timeout is cleared and reassigned
         //this is unique to steps, but could be applied to drips
-        if (!stepTimeout) delayMaker(volume, randomNumberInclusive(4, 6), "/static/bass-hit.mp3", dmin, dmax);
+        if (!stepTimeout) delayMaker(volume, randomNumberInclusive(4, 6), "/have-you-ever-wondered-why-the-mole-people-march/bass-hit.mp3", dmin, dmax);
         //sets a timeout for the sounds to recur
         stepTimeout = setTimeout(
             () => {
-                delayMaker(volume, taps, "/static/bass-hit.mp3", dmin, dmax);
+                delayMaker(volume, taps, "/have-you-ever-wondered-why-the-mole-people-march/bass-hit.mp3", dmin, dmax);
                 stepMaker(volume, taps, min, max, dmin, dmax);
             },
             randomNumberInclusive(min, max)
@@ -238,7 +238,7 @@
     function dripMaker(volume, taps, min, max, dmin, dmax) {
         dripTimeout = setTimeout(
             () => {
-                delayMaker(volume, taps, "/static/drip.mp3", dmin, dmax);
+                delayMaker(volume, taps, "/have-you-ever-wondered-why-the-mole-people-march/drip.mp3", dmin, dmax);
                 dripMaker(volume, taps, min, max, dmin, dmax);
             },
             randomNumberInclusive(min, max)
@@ -251,7 +251,7 @@
         //creates a gain node, panner, and player
         let gain = new Tone.Gain(volume).toDestination();
         let panner = new Tone.Panner(randomNumberInclusive(-1, 1)).connect(gain);
-        let wind = new Tone.Player("/static/wind.mp3").connect(panner);
+        let wind = new Tone.Player("/have-you-ever-wondered-why-the-mole-people-march/wind.mp3").connect(panner);
         //sets the fade in and fade out times and autostarts the sound
         //autostart is necessary because we don't know when the player will be loaded
         wind.fadeIn = 2;
@@ -341,7 +341,7 @@
                 break;
             case 2:
                 //a bass hit with a delay on sequence trigger
-                delayMaker(0.85, randomNumberInclusive(4, 6), "/static/bass-hit.mp3", 1100, 1250);
+                delayMaker(0.85, randomNumberInclusive(4, 6), "/have-you-ever-wondered-why-the-mole-people-march/bass-hit.mp3", 1100, 1250);
                 //start looping bassLayer3
                 loopBassLayer3(50);
                 canProgress = false;
@@ -353,7 +353,7 @@
                 }, 10000);
                 break;
             case 3:
-                delayMaker(0.85, randomNumberInclusive(4, 6), "/static/bass-hit.mp3", 1100, 1250);
+                delayMaker(0.85, randomNumberInclusive(4, 6), "/have-you-ever-wondered-why-the-mole-people-march/bass-hit.mp3", 1100, 1250);
                 canProgress = false;
                 sequenceDescription = "Wait about 5 seconds.";
                 waitTimer(5);
@@ -371,7 +371,7 @@
                 sequenceDescription = "Wait for the first bass drum sound 🥁.";
                 waitTimer(10);
                 setTimeout(() => {
-                    delayMaker(0.85, randomNumberInclusive(4, 6), "/static/bass-hit.mp3", 1100, 1250);
+                    delayMaker(0.85, randomNumberInclusive(4, 6), "/have-you-ever-wondered-why-the-mole-people-march/bass-hit.mp3", 1100, 1250);
                     canProgress = true;
                     sequenceDescription = "Waiting for next sequence.";
                 }, 10000);
@@ -507,7 +507,7 @@
             //the merge is necessary because the delays are panned in stereo and I want to merge them back to mono. This is also necessary to include live mic input into the amplified signal
         } else {
             micGain = new Tone.Gain(1).toDestination();
-            micReverb = new Tone.Convolver("/static/MillsGreekTheater.wav").connect(micGain);
+            micReverb = new Tone.Convolver("/have-you-ever-wondered-why-the-mole-people-march/MillsGreekTheater.wav").connect(micGain);
             micSplit = new Tone.Split();
             micMerge = new Tone.Merge().connect(micReverb);
             micDelay1 = new Tone.FeedbackDelay(0.375, 0.3).connect(micMerge, 0, 0);
@@ -537,7 +537,7 @@
         <a class="position-absolute top-0 start-0 m-3 fs-4 text-light" href="https://forrestbalman.com">Forrest Balman</a>
     {/if}
     {#if !allowAudio}
-        <h1 class="display-2 text-light text-center">Have you ever wondered why the <span class="mole-container"><img class="svg-size mole" src="/static/mole.svg" alt="Mole icon" /></span> people march?</h1>
+        <h1 class="display-2 text-light text-center">Have you ever wondered why the <span class="mole-container"><img class="svg-size mole" src="/have-you-ever-wondered-why-the-mole-people-march/mole.svg" alt="Mole icon" /></span> people march?</h1>
         <button
             class="sequence-btn rounded-1 border-0 text-light"
             on:click={() => {
